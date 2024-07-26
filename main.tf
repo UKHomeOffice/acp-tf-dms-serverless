@@ -39,7 +39,7 @@ resource "aws_dms_endpoint" "source" {
   endpoint_type               = "source"
   engine_name                 = var.source_database_engine
   extra_connection_attributes = var.source_database_extra_connection_attributes
-  kms_key_arn                 = aws_kms_key.this
+  kms_key_arn                 = aws_kms_key.this.arn
   username                    = var.source_database_username
   password                    = var.source_database_password
   port                        = var.source_database_port
@@ -64,7 +64,7 @@ resource "aws_dms_endpoint" "target" {
   endpoint_type               = "target"
   engine_name                 = var.target_database_engine
   extra_connection_attributes = var.target_database_extra_connection_attributes
-  kms_key_arn                 = aws_kms_key.this
+  kms_key_arn                 = aws_kms_key.this.arn
   username                    = var.target_database_username
   password                    = var.target_database_password
   port                        = var.target_database_port
