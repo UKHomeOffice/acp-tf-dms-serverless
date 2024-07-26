@@ -36,6 +36,10 @@ variable "dms_replication_preferred_maintenance_window" {
   default     = null
 }
 
+variable "dms_replication_subnet_group_id" {
+  description = "The ID of the DMS subnet group to use - must be routable to both source and target database endpoint"
+}
+
 # DMS Source
 variable "source_database_certificate_arn" {
   description = "The ARN of an ACM certificate should one be needed"
