@@ -24,8 +24,6 @@ No modules.
 | [aws_dms_endpoint.source](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/dms_endpoint) | resource |
 | [aws_dms_endpoint.target](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/dms_endpoint) | resource |
 | [aws_dms_replication_config.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/dms_replication_config) | resource |
-| [aws_kms_alias.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kms_alias) | resource |
-| [aws_kms_key.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kms_key) | resource |
 | [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 | [aws_iam_policy_document.kms_key_policy_document](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) | data source |
@@ -37,7 +35,8 @@ No modules.
 | <a name="input_dms_replication_max_capacity_units"></a> [dms\_replication\_max\_capacity\_units](#input\_dms\_replication\_max\_capacity\_units) | Specifies the maximum value of the DMS capacity units (DCUs) for which a given DMS Serverless replication can be provisioned. Please use one of: 2, 4, 8, 16, 32, 64, 128, 192, 256, 384 | `any` | n/a | yes |
 | <a name="input_dms_replication_name"></a> [dms\_replication\_name](#input\_dms\_replication\_name) | The name of the DMS replciation - sugguested pattern - <ticket number>-<tenant> | `any` | n/a | yes |
 | <a name="input_dms_replication_preferred_maintenance_window"></a> [dms\_replication\_preferred\_maintenance\_window](#input\_dms\_replication\_preferred\_maintenance\_window) | The preferred weekly time range during which system maintenance can occur, in Universal Coordinated Time (UTC), minimum 30 min block - format ddd:hh24:mi-ddd:hh24:mi  e.g. sun:23:45-mon:00:30 | `any` | `null` | no |
-| <a name="input_dms_replication_table_mamppings"></a> [dms\_replication\_table\_mamppings](#input\_dms\_replication\_table\_mamppings) | json escaped string of table mappings - default is % wildcard for schemas and tables | `string` | `"{\"rules\":[{\"rule-type\":\"selection\",\"rule-id\":\"1\",\"rule-name\":\"1\",\"rule-action\":\"include\",\"object-locator\":{\"schema-name\":\"%%\",\"table-name\":\"%%\"}}]}"` | no |
+| <a name="input_dms_replication_subnet_group_id"></a> [dms\_replication\_subnet\_group\_id](#input\_dms\_replication\_subnet\_group\_id) | The ID of the DMS subnet group to use - must be routable to both source and target database endpoint | `any` | n/a | yes |
+| <a name="input_dms_replication_table_mappings"></a> [dms\_replication\_table\_mappings](#input\_dms\_replication\_table\_mappings) | json escaped string of table mappings - default is % wildcard for schemas and tables | `string` | `"{\"rules\":[{\"rule-type\":\"selection\",\"rule-id\":\"1\",\"rule-name\":\"1\",\"rule-action\":\"include\",\"object-locator\":{\"schema-name\":\"%%\",\"table-name\":\"%%\"}}]}"` | no |
 | <a name="input_dms_replication_type"></a> [dms\_replication\_type](#input\_dms\_replication\_type) | The type of DMS replication, please use one of: full-load, cdc, full-load-and-cdc | `any` | n/a | yes |
 | <a name="input_email_addresses"></a> [email\_addresses](#input\_email\_addresses) | A list of email addresses for key rotation notifications. | `list` | `[]` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | The environment DMS is running in i.e. dev, prod etc | `any` | n/a | yes |

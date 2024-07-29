@@ -11,26 +11,28 @@ data "aws_region" "current" {
 }
 
 #KMS key used for DNS migration - this is configured for endpoints and dms instance/serverless
-resource "aws_kms_key" "this" {
-  description         = "A kms key for DMS migrations"
-  enable_key_rotation = true
-  policy              = data.aws_iam_policy_document.kms_key_policy_document.json
+# DMS Serverless does not currently support the use of CMKs - Only the default AWS DMS Key
+# https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Serverless.Limitations.html
+# resource "aws_kms_key" "this" {
+#   description         = "A kms key for DMS migrations"
+#   enable_key_rotation = true
+#   policy              = data.aws_iam_policy_document.kms_key_policy_document.json
 
-  tags = merge(
-    var.tags,
-    {
-      "Name" = format("%s-%s", var.environment, "${var.dms_replication_name}-dms")
-    },
-    {
-      "Env" = var.environment
-    },
-  )
-}
+#   tags = merge(
+#     var.tags,
+#     {
+#       "Name" = format("%s-%s", var.environment, "${var.dms_replication_name}-dms")
+#     },
+#     {
+#       "Env" = var.environment
+#     },
+#   )
+# }
 
-resource "aws_kms_alias" "this" {
-  name          = "alias/${var.dms_replication_name}-dms"
-  target_key_id = aws_kms_key.this.key_id
-}
+# resource "aws_kms_alias" "this" {
+#   name          = "alias/${var.dms_replication_name}-dms"
+#   target_key_id = aws_kms_key.this.key_id
+# }
 
 resource "aws_dms_endpoint" "source" {
   certificate_arn             = var.source_database_certificate_arn
@@ -39,12 +41,14 @@ resource "aws_dms_endpoint" "source" {
   endpoint_type               = "source"
   engine_name                 = var.source_database_engine
   extra_connection_attributes = var.source_database_extra_connection_attributes
-  kms_key_arn                 = aws_kms_key.this.arn
-  username                    = var.source_database_username
-  password                    = var.source_database_password
-  port                        = var.source_database_port
-  server_name                 = var.source_database_endpoint
-  ssl_mode                    = var.source_database_sslmode
+  # DMS Serverless does not currently support the use of CMKs - Only the default AWS DMS Key
+  # https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Serverless.Limitations.html
+  # kms_key_arn                 = aws_kms_key.this.arn
+  username    = var.source_database_username
+  password    = var.source_database_password
+  port        = var.source_database_port
+  server_name = var.source_database_endpoint
+  ssl_mode    = var.source_database_sslmode
 
   tags = merge(
     var.tags,
@@ -64,12 +68,14 @@ resource "aws_dms_endpoint" "target" {
   endpoint_type               = "target"
   engine_name                 = var.target_database_engine
   extra_connection_attributes = var.target_database_extra_connection_attributes
-  kms_key_arn                 = aws_kms_key.this.arn
-  username                    = var.target_database_username
-  password                    = var.target_database_password
-  port                        = var.target_database_port
-  server_name                 = var.target_database_endpoint
-  ssl_mode                    = var.target_database_sslmode
+  # DMS Serverless does not currently support the use of CMKs - Only the default AWS DMS Key
+  # https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Serverless.Limitations.html
+  # kms_key_arn                 = aws_kms_key.this.arn
+  username    = var.target_database_username
+  password    = var.target_database_password
+  port        = var.target_database_port
+  server_name = var.target_database_endpoint
+  ssl_mode    = var.target_database_sslmode
 
   tags = merge(
     var.tags,
