@@ -22,7 +22,7 @@ variable "dms_replication_type" {
   description = "The type of DMS replication, please use one of: full-load, cdc, full-load-and-cdc"
 }
 
-variable "dms_replication_table_mamppings" {
+variable "dms_replication_table_mappings" {
   description = "json escaped string of table mappings - default is % wildcard for schemas and tables"
   default     = "{\"rules\":[{\"rule-type\":\"selection\",\"rule-id\":\"1\",\"rule-name\":\"1\",\"rule-action\":\"include\",\"object-locator\":{\"schema-name\":\"%%\",\"table-name\":\"%%\"}}]}"
 }

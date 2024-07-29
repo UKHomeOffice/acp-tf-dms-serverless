@@ -89,7 +89,7 @@ resource "aws_dms_replication_config" "this" {
   replication_type              = var.dms_replication_type
   source_endpoint_arn           = aws_dms_endpoint.source.endpoint_arn
   target_endpoint_arn           = aws_dms_endpoint.target.endpoint_arn
-  table_mappings                = jsonencode(var.dms_replication_table_mamppings)
+  table_mappings                = var.dms_replication_table_mappings
 
   start_replication = true
 
