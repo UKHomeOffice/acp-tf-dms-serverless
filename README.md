@@ -1,4 +1,39 @@
-tbc
+# acp-tf-dms-serverless terraform module
+
+Module usage:
+```
+module "dms_serverless" {
+    source = "git::https://github.com/UKHomeOffice/acp-tf-dms-serverless?ref=main"
+
+    environment = var.environment
+
+    dms_replication_name               = "<ticket>-<tenant>-placeholder"
+    dms_replication_type               = "full-load-and-cdc"
+    dms_replication_max_capacity_units = "4"
+    dms_replication_subnet_group_id    = <subnet_group_id>
+
+    source_database            = "source_db"
+    source_database_engine     = "engine"
+    source_database_identifier = "<ticket>-<tenant>-source_db"
+    source_database_username   = "root"
+    source_database_password   = data.aws_kms_secrets.source_db.plaintext["password"]
+    source_database_port       = "<port>"
+    source_database_endpoint   = "<source_db_endpoint>"
+
+    target_database            = "target_db"
+    target_database_engine     = "engine"
+    target_database_identifier = "<ticket>-<tenant>-target_db"
+    target_database_username   = "root"
+    target_database_password   = data.aws_kms_secrets.target_db.plaintext["password"]
+    target_database_port       = "<port>"
+    target_database_endpoint   = "<target_db_endpoint>"
+
+    tags = {
+        ...
+    }
+}
+```
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
